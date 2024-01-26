@@ -17,7 +17,7 @@ st.sidebar.markdown("4. Cliquez sur le bouton **Recommencer** (2 fois) pour reco
 space_side(2)
 
 st.sidebar.markdown("## À propos")
-st.sidebar.markdown("Si vous voyez des **erreurs** dans les réponses ou si vous avez des **suggestions** de questions à ajouter, <a href='mailto:joseph.barbierdarnal@gmail.com' target='_blank'>envoyez les moi</a> en format **csv** avec 4 colonnes:", unsafe_allow_html=True)
+st.sidebar.markdown("Si vous voyez des **erreurs** dans les réponses ou si vous avez des **suggestions** de questions à ajouter, envoyez les moi en format **csv** avec 4 colonnes:")
 st.sidebar.markdown("- *Question*: la question")
 st.sidebar.markdown("- *Réponse*: la réponse correcte")
 st.sidebar.markdown("- *Option A*: une réponse possible")
