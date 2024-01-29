@@ -2,7 +2,20 @@ import streamlit as st
 import random
 from functions import *
 
-# initialisation
+
+# function to calculate and display score
+def display_score():
+    if st.session_state.submitted:
+        score = sum(st.session_state[f"Question{i}"] == data.iloc[st.session_state.question_indices[i]]['Réponse']
+                    for i in range(total_questions))
+        st.markdown(f"Votre score: **{score} sur {total_questions}**")
+
+# callback function for restarting the quiz
+def restart_quiz():
+    st.session_state.question_indices = random.sample(range(len(data)), total_questions)
+    st.session_state.submitted = False
+
+# initial setup
 st.title("Quiz d'entraînement examen IREF")
 st.sidebar.markdown("## Comment ça marche ?")
 st.sidebar.markdown("10 questions sont sélectionnées aléatoirement parmi un pool de ~100 questions.")
@@ -11,9 +24,8 @@ space_side(2)
 
 st.sidebar.markdown("## Comment utiliser ce quiz ?")
 st.sidebar.markdown("1. Lisez les questions et choisissez la bonne réponse")
-st.sidebar.markdown("2. Cliquez sur le bouton **Soumettre toutes les réponses** pour afficher votre score final")
-st.sidebar.markdown("3. Re-clicker sur le bouton **Soumettre toutes les réponses** pour afficher les bonnes réponses sous chaque question")
-st.sidebar.markdown("4. Cliquez sur le bouton **Recommencer** (2 fois) pour recommencer le quiz")
+st.sidebar.markdown("2. Cliquez sur le bouton **Soumettre toutes les réponses** 2 fois pour afficher votre score final")
+st.sidebar.markdown("4. Cliquez sur le bouton **Recommencer** pour recommencer le quiz")
 space_side(2)
 
 st.sidebar.markdown("## À propos")
@@ -28,13 +40,12 @@ space(2)
 data = load_data("qa.csv")
 total_questions = 10
 
-# initialisation session
+# initialize session state
 if 'question_indices' not in st.session_state:
     st.session_state.question_indices = random.sample(range(len(data)), total_questions)
-    st.session_state.answers = [None] * total_questions
     st.session_state.submitted = False
 
-# Affichage de toutes les questions
+# display all questions
 for i in range(total_questions):
     question_data = data.iloc[st.session_state.question_indices[i]]
     question, correct_answer = question_data['Question'], question_data['Réponse']
@@ -46,30 +57,23 @@ for i in range(total_questions):
                              options, 
                              key=f"Question{i}")
 
-    # Afficher le message de succès ou d'erreur si les réponses ont été soumises
+    # display success or error message if answers are submitted
     if st.session_state.submitted:
         if chosen_answer == correct_answer:
             st.success(f"Correct! La bonne réponse est: **{correct_answer}**")
         else:
             st.error(f"Incorrect. La bonne réponse est: {correct_answer}")
+space(1)
+display_score()
 
-# Bouton de soumission des réponses
-if st.button("Soumettre toutes les réponses"):
-    st.session_state.submitted = True
-    score = 0
-    for i in range(total_questions):
-        question_data = data.iloc[st.session_state.question_indices[i]]
-        correct_answer = question_data['Réponse']
-        if st.session_state[f"Question{i}"] == correct_answer:
-            score += 1
-    st.write("Quiz terminé!")
-    st.markdown(f"Votre score: **{score} sur {total_questions}**")
+col1, col2 = st.columns(2)
+with col1:
+    if st.button("Soumettre toutes les réponses"):
+        st.session_state.submitted = True
+with col2:
+    if st.button("Recommencer", on_click=restart_quiz):
+        pass
 
-# restart
-if st.button("Recommencer"):
-    st.session_state.question_indices = random.sample(range(len(data)), total_questions)
-    st.session_state.answers = [None] * total_questions
-    st.session_state.submitted = False
+
 
 space(5)
-
