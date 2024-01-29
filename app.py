@@ -5,7 +5,7 @@ from functions import *
 # initialisation
 st.title("Quiz d'entraînement examen IREF")
 st.sidebar.markdown("## Comment ça marche ?")
-st.sidebar.markdown("10 questions sont sélectionnées aléatoirement parmi un pool de ~50 questions.")
+st.sidebar.markdown("10 questions sont sélectionnées aléatoirement parmi un pool de ~100 questions.")
 st.sidebar.markdown("Une seule bonne réponse est possible par question.")
 space_side(2)
 
