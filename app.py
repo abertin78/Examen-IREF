@@ -8,7 +8,21 @@ def display_score():
     if st.session_state.submitted:
         score = sum(st.session_state[f"Question{i}"] == data.iloc[st.session_state.question_indices[i]]['Réponse']
                     for i in range(total_questions))
-        st.markdown(f"Votre score: **{score} sur {total_questions}**")
+        
+        # display score
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown(f"Votre score: **{score} sur {total_questions}**")
+        with col2:
+            width = 100
+            if score < 4:
+                st.image('img/bad.png', caption='not good', width=width)
+            elif score < 7:
+                st.image('img/mid.png', caption='not bad', width=width)
+            elif score < 10:
+                st.image('img/good.png', caption='good', width=width)
+            else:
+                st.image('img/excellent.png', caption='excellent', width=width)
 
 # callback function for restarting the quiz
 def restart_quiz():
