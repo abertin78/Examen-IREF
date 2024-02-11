@@ -16,13 +16,13 @@ def display_score():
         with col2:
             width = 100
             if score < 4:
-                st.image('img/bad.png', caption='not good', width=width)
+                st.image('img/bad.png', caption='NOT GOOD', width=width)
             elif score < 7:
-                st.image('img/mid.png', caption='not bad', width=width)
+                st.image('img/mid.png', caption='NOT BAD', width=width)
             elif score < 10:
-                st.image('img/good.png', caption='good', width=width)
+                st.image('img/good.png', caption='GOOD', width=width)
             else:
-                st.image('img/excellent.png', caption='excellent', width=width)
+                st.image('img/excellent.png', caption='EXCELLENT', width=width)
 
 # callback function for restarting the quiz
 def restart_quiz():
@@ -32,7 +32,7 @@ def restart_quiz():
 # initial setup
 st.title("Quiz d'entraînement examen IREF")
 st.sidebar.markdown("## Comment ça marche ?")
-st.sidebar.markdown("10 questions sont sélectionnées aléatoirement parmi un pool de ~100 questions.")
+st.sidebar.markdown("10 questions sont sélectionnées aléatoirement parmi un pool de ~120 questions.")
 st.sidebar.markdown("Une seule bonne réponse est possible par question.")
 space_side(2)
 
@@ -43,12 +43,7 @@ st.sidebar.markdown("4. Cliquez sur le bouton **Recommencer** pour recommencer l
 space_side(2)
 
 st.sidebar.markdown("## À propos")
-st.sidebar.markdown("Si vous voyez des **erreurs** dans les réponses ou si vous avez des **suggestions** de questions à ajouter, envoyez moi les cours ou des questions en format **csv** avec 4 colonnes:")
-st.sidebar.markdown("- *Question*: la question")
-st.sidebar.markdown("- *Réponse*: la réponse correcte")
-st.sidebar.markdown("- *Option A*: une réponse possible")
-st.sidebar.markdown("- *Option B*: une réponse possible")
-st.sidebar.markdown("- *Option C*: une réponse possible")
+st.sidebar.markdown("Si vous voyez des **erreurs** dans les réponses ou si vous avez des **suggestions** de questions à ajouter, [changez les questions](https://github.com/JosephBARBIERDARNAL/Examen-IREF/blob/main/qa.csv).")
 space(2)
 
 data = load_data("qa.csv")
@@ -69,7 +64,8 @@ for i in range(total_questions):
     st.markdown(f"**{question}**")
     chosen_answer = st.radio(f"Choisissez la bonne réponse pour la question {i + 1}", 
                              options, 
-                             key=f"Question{i}")
+                             key=f"Question{i}",
+                             index=random.randint(0, 2))
 
     # display success or error message if answers are submitted
     if st.session_state.submitted:
