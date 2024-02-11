@@ -64,8 +64,7 @@ for i in range(total_questions):
     st.markdown(f"**{question}**")
     chosen_answer = st.radio(f"Choisissez la bonne réponse pour la question {i + 1}", 
                              options, 
-                             key=f"Question{i}",
-                             index=random.randint(0, 2))
+                             key=f"Question{i}")
 
     # display success or error message if answers are submitted
     if st.session_state.submitted:
