@@ -71,7 +71,7 @@ for i in range(total_questions):
         if chosen_answer == correct_answer:
             st.success(f"Correct! La bonne réponse est: **{correct_answer}**")
         else:
-            st.error(f"Incorrect. La bonne réponse est: {correct_answer}")
+            st.error(f"Incorrect. La bonne réponse est: **{correct_answer}**")
 space(1)
 display_score()
 
