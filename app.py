@@ -23,6 +23,7 @@ def display_score():
             elif score < 10:
                 st.image('img/good.png', caption='GOOD', width=width)
             else:
+                st.balloons()
                 st.image('img/excellent.png', caption='EXCELLENT', width=width)
 
 # callback function for restarting the quiz
