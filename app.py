@@ -1,5 +1,6 @@
 import streamlit as st
 import random
+random.seed(42)
 from functions import *
 
 
@@ -59,6 +60,7 @@ for i in range(total_questions):
     question_data = data.iloc[st.session_state.question_indices[i]]
     question, correct_answer = question_data['Question'], question_data['Réponse']
     options = [question_data['Option A'], question_data['Option B'], question_data['Option C']]
+    random.shuffle(options)
 
     st.markdown(f"### Question {i + 1} sur {total_questions}")
     st.markdown(f"**{question}**")
